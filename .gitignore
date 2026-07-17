@@ -3,3 +3,4 @@ venv-aws-srlvel
 **/terraform.tfstate
 **/.erraform.locl.hcl
 **/terraform.tfstate.backup
+**/terraform.tfvars
