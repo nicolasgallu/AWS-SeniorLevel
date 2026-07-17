@@ -1,6 +1,8 @@
 venv-aws-srlvel
 **/.terraform/
 **/terraform.tfstate
-**/.terraform.locl.hcl
+**/.terraform.lock.hcl
 **/terraform.tfstate.backup
 **/terraform.tfvars
+
+

@@ -34,3 +34,13 @@ resource "aws_iam_role" "lambda_role" {
     }]
   })
 }
+
+resource "aws_s3_bucket" "data_bucket" {
+  bucket = var.bucket_name
+}
+
+resource "aws_s3_object" "pipeline-weather-data" {
+  bucket  = aws_s3_bucket.data_bucket.id
+  key     = "pipeline-weather-data/"
+  content = ""
+}
