@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - pip install -r app/requirements.txt -t app/
+
+  build:
+    commands:
+      - cd app
+      - zip -r ../lambda.zip .
+
+artifacts:
+  files:
+    - lambda.zip

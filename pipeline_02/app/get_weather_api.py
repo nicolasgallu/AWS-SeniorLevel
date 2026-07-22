@@ -18,13 +18,12 @@ def get_weather(token, location, days=None, dt=None, endpoint=None):
     print(f"processing {endpoint} done.")
     return {endpoint: response.json()}
 
-locations = ['Tierra del Fuego']
-days_forecast = [2]
-dates = ['2026-07-16']
+locations = ['Tierra del Fuego'] #localidades a scrappear
+days_forecast = [2] #n dias para calcular forecasting
+dates = ['2026-07-16'] #n fechas para traer historico
 token = "8b8c4f3c02be4c40964170107252302"
 
 information = []
-
 #obtenemos data clima x location
 for location in locations:
     current_weather = get_weather(token, location, days=None, dt=None, endpoint="current")
@@ -39,13 +38,15 @@ for location in locations:
         historical = get_weather(token, location, days=None, dt=dt, endpoint="history")
         information.append(historical)
 
-
-#print(information)
 s3_client = boto3.client('s3')
 s3_bucket_name = "anweather-datalake-projects-6817346630270909-us-east-2"
 project_pipeline_name = "pipeline-weather-data"
-batch_id = "1"
+batch_id = "2"
 s3_object_key =f"{project_pipeline_name}/list_locations_dates_to_process_data_batch_{batch_id}.json"
 #s3_object = s3_client.get_object(bucket=s3_bucket_name, key=s3_object_key)
-
-s3_client.put_object(Bucket=s3_bucket_name, Key=s3_object_key, Body=json.dumps(information))
+response = s3_client.put_object(Bucket=s3_bucket_name, Key=s3_object_key, Body=json.dumps(information))
+status = response["ResponseMetadata"]["HTTPStatusCode"]
+if status == 200:
+    print("Upload succeeded")
+else:
+    print(f"Unexpected status: {status}")

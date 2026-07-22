@@ -4,5 +4,7 @@ venv-aws-srlvel
 **/.terraform.lock.hcl
 **/terraform.tfstate.backup
 **/terraform.tfvars
-
-
+pipeline_02/code/__pycache__/
+pipeline_02/code/file.json
+pipeline_02/code/lambda.zip
+venv-pipe02/
